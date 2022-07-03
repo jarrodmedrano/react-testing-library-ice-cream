@@ -1,21 +1,22 @@
 import './App.css'
 import { useState, useEffect } from 'react';
-
+import { redColor, blueColor, disabledColor, replaceCamelWithSpaces } from './utils';
 
 function App() {
-  const [ buttonColor, setButtonColor ] = useState('red');
+
+  const [ buttonColor, setButtonColor ] = useState(redColor);
   const [ disabled, setdisabled ] = useState(false);
   
-  const newButtonColor = buttonColor === 'red' ? 'blue' : 'red';
+  const newButtonColor = buttonColor === redColor ? blueColor : redColor;
 
 
   return (
     <div>
         <button
-        style={{backgroundColor: disabled ? 'gray' : buttonColor, color: 'white'}}
+        style={{backgroundColor: disabled ? disabledColor : buttonColor, color: 'white'}}
         onClick={() => setButtonColor(newButtonColor)}
         disabled={disabled}
-      >Change to {newButtonColor}</button>
+      >Change to {replaceCamelWithSpaces(newButtonColor)}</button>
     <br />
     <input
         type="checkbox"

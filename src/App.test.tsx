@@ -6,7 +6,7 @@ import App from "./App";
 
 beforeEach(() => {
    render(<App />);
-})
+});
 
 test("button has correct initial color", () => {
 
@@ -65,15 +65,53 @@ test("button color changes to gray when disabled", async () => {
   // check that the button starts out enabled
   expect(colorButton).toBeEnabled();
 
+   // expect the background color to be red
+  expect(colorButton).toHaveStyle({ backgroundColor: "red" });
+
   // check that the checkbox starts out unchecked
   const checkbox = screen.getByRole("checkbox", {name: 'Disable Button'});
   expect(checkbox).not.toBeChecked();
-  
-  await userEvent.click(checkbox);  
 
-  // check that the button is disabled when checkbox checked
+  // check the checkbox
+  await userEvent.click(checkbox);
+
   expect(checkbox).toBeChecked();
 
-  expect(colorButton).toBeDisabled();
+  // expect the background color to be gray
+  expect(colorButton).toHaveStyle({ backgroundColor: "gray" });
+
+});
+
+
+test("blue button color also changes to gray when disabled", async () => {
+
+  // find an element with a role of button and text of 'Change to blue'
+  const colorButton = screen.getByRole("button", { name: "Change to blue" });
+  
+  // check that the button starts out enabled
+  expect(colorButton).toBeEnabled();
+
+   // expect the background color to be red
+  expect(colorButton).toHaveStyle({ backgroundColor: "red" });
+
+  // check that the checkbox starts out unchecked
+  const checkbox = screen.getByRole("checkbox", {name: 'Disable Button'});
+  expect(checkbox).not.toBeChecked();
+
+
+  // click button
+  fireEvent.click(colorButton);
+
+  // expect the background color to be blue
+  expect(colorButton).toHaveStyle({ backgroundColor: "blue" });
+
+  
+  // check the checkbox
+  await userEvent.click(checkbox);
+
+  expect(checkbox).toBeChecked();
+
+  // expect the background color to be gray
+  expect(colorButton).toHaveStyle({ backgroundColor: "gray" });
 
 });

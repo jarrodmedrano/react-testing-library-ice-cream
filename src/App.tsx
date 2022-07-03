@@ -1,6 +1,7 @@
 import './App.css'
 import { useState, useEffect } from 'react';
 import { redColor, blueColor, disabledColor, replaceCamelWithSpaces } from './utils';
+import SummaryForm from './pages/summary/SummaryForm';
 
 function App() {
 
@@ -25,6 +26,8 @@ function App() {
         aria-checked={disabled}
         onChange={(e) => setdisabled(e.target.checked)} />
       <label htmlFor="disable-button-checkbox">Disable Button</label>
+
+      <SummaryForm />
     </div>  
   );
 }

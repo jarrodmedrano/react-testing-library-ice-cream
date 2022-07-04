@@ -13,20 +13,6 @@ function App() {
 
   return (
     <div>
-        <button
-        style={{backgroundColor: disabled ? disabledColor : buttonColor, color: 'white'}}
-        onClick={() => setButtonColor(newButtonColor)}
-        disabled={disabled}
-      >Change to {replaceCamelWithSpaces(newButtonColor)}</button>
-    <br />
-    <input
-        type="checkbox"
-        id="disable-button-checkbox"
-        defaultChecked={disabled}
-        aria-checked={disabled}
-        onChange={(e) => setdisabled(e.target.checked)} />
-      <label htmlFor="disable-button-checkbox">Disable Button</label>
-
       <SummaryForm />
     </div>  
   );

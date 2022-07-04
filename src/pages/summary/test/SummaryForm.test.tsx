@@ -1,4 +1,4 @@
-import { render, screen, fireEvent, waitFor } from "@testing-library/react";
+import { render, screen, fireEvent, waitFor, waitForElementToBeRemoved } from "@testing-library/react";
 import {replaceCamelWithSpaces} from './utils';
 import { redColor, blueColor, disabledColor } from './utils';
 import userEvent from '@testing-library/user-event'
@@ -8,9 +8,7 @@ beforeEach(() => {
    render(<SummaryForm />);
 });
 
-
 describe('Testing render',  () => {
-
    test('Initial renders', async () => {
        await waitFor(() =>   screen.getByRole('heading'));
 
@@ -35,30 +33,30 @@ describe('Test button is enabled after checkbox checked', () => {
 
       expect(colorButton).toBeEnabled();  
 
-   });
+   }); 
 });
 
 describe('testing popover', () => {
-  test('popover responds to hover', () => {
-    const regex = /no ice cream will actually be delivered/i;
-    //popover starts out hidden
-    const nullPopover = screen.queryByText(regex);
-    expect(nullPopover).not.toBeInTheDocument();
+  test('popover responds to hover', async () => {
 
-    //popover appears upon mouseover of checkbox label
-    const termsAndConditions = screen.getByText(/terms and conditions/i);
-    userEvent.hover(termsAndConditions);
+  // popover starts out hidden
+  const nullPopover = screen.queryByText(
+    /no ice cream will actually be delivered/i
+  );
+  expect(nullPopover).not.toBeInTheDocument();
 
-    const popover = screen.getByText(regex);
+  // popover appears upon mouseover of checkbox label
+  const termsAndConditions = screen.getByText(/terms and conditions/i);
+  userEvent.hover(termsAndConditions);
 
-    expect(popover).toBeInTheDocument();
+  const popover = screen.getByText(/no ice cream will actually be delivered/i);
+  expect(popover).toBeInTheDocument();
 
-    //popover disappears when we mouse out
+  // popover disappears when we mouse out
+  userEvent.unhover(termsAndConditions);
+  await waitForElementToBeRemoved(() => 
+    screen.queryByText(/no ice cream will actually be delivered/i)
+  );
+});
 
-    userEvent.unhover(termsAndConditions);
-    
-    const nullPopoverAgain = screen.queryBytext(regex);
-
-    expect(nullPopoverAgain).not.toBeInTheDocument();
-  })
 })

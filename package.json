@@ -33,5 +33,8 @@
     "typescript": "^4.6.3",
     "typescript-language-server": "^0.9.7",
     "vite": "^2.9.5"
+  },
+  "devDependencies": {
+    "@testing-library/dom": "^8.14.1"
   }
 }

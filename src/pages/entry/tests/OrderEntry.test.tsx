@@ -1,9 +1,14 @@
-import { render, screen, waitFor } from "@testing-library/react";
+import {
+  render,
+  screen,
+  waitFor,
+} from "../../../test-utils/testing-library-utils";
 
-import OrderEntry from "./OrderEntry";
+import OrderEntry from "../OrderEntry";
 
 import { rest } from "msw";
-import { server } from "../../mocks/server";
+import { server } from "../../../mocks/server";
+import userEvent from "@testing-library/user-event";
 
 test("handles error for scoops and toppings routes", async () => {
   server.resetHandlers(

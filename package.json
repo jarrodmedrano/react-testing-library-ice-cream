@@ -4,8 +4,9 @@
   "description": "React TypeScript on Replit, using Vite bundler",
   "main": "index.js",
   "scripts": {
+    "clean": "rm package-lock.json && rm -rf node_modules",
     "build": "vite build",
-    "dev": "vite",
+    "dev": "vite --port 9555",
     "test": "react-scripts test"
   },
   "keywords": [],

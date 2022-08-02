@@ -1,15 +1,15 @@
-import "./App.css";
-import { useState, useEffect } from "react";
+import './App.css';
+import { useState, useEffect } from 'react';
 import {
   redColor,
   blueColor,
   disabledColor,
   replaceCamelWithSpaces,
-} from "./utils";
-import SummaryForm from "./pages/summary/SummaryForm";
-import OrderEntry from "./pages/entry/OrderEntry";
-import { OrderDetailsProvider } from "./contexts/OrderDetails";
-import { Container } from "react-bootstrap";
+} from './utils';
+import SummaryForm from './pages/summary/SummaryForm';
+import OrderEntry from './pages/entry/OrderEntry';
+import { OrderDetailsProvider } from './contexts/OrderDetails';
+import { Container } from 'react-bootstrap';
 
 function App() {
   const [buttonColor, setButtonColor] = useState(redColor);
@@ -18,12 +18,12 @@ function App() {
   const newButtonColor = buttonColor === redColor ? blueColor : redColor;
 
   return (
-    <Container>
-      <OrderDetailsProvider>
+    <OrderDetailsProvider>
+      <Container>
         <OrderEntry />
         {/* <SummaryForm /> */}
-      </OrderDetailsProvider>
-    </Container>
+      </Container>
+    </OrderDetailsProvider>
   );
 }
 

@@ -1,12 +1,12 @@
-import axios from "axios";
-import { ReactElement, SetStateAction, useEffect, useState } from "react";
-import { Row } from "react-bootstrap";
-import ScoopOption from "./ScoopOption";
-import ToppingOption from "./ToppingOption";
-import AlertBanner from "../common/AlertBanner";
-import { pricePerItem } from "../../constants";
-import { useOrderDetails } from "../../contexts/OrderDetails";
-import { formatCurrency } from "../../utilities";
+import axios from 'axios';
+import { ReactElement, SetStateAction, useEffect, useState } from 'react';
+import { Row } from 'react-bootstrap';
+import ScoopOption from './ScoopOption';
+import ToppingOption from './ToppingOption';
+import AlertBanner from '../common/AlertBanner';
+import { pricePerItem } from '../../constants';
+import { useOrderDetails } from '../../contexts/OrderDetails';
+import { formatCurrency } from '../../utilities';
 export interface IProps {
   name: string;
   key: string;
@@ -23,7 +23,7 @@ const Options = ({ optionType }: { optionType: string }) => {
 
   useEffect(() => {
     axios
-      .get(`http://localhost:3030/${optionType}`)
+      .get(`http://localhost:3031/${optionType}`)
       .then((response) => setItems(response.data))
       .catch((error) => {
         //TODO: handle error response
@@ -37,7 +37,7 @@ const Options = ({ optionType }: { optionType: string }) => {
 
   // TODO: replace 'null' with ToppingOption when available
   const ItemComponent: React.FunctionComponent<IProps> =
-    optionType === "scoops" ? ScoopOption : ToppingOption;
+    optionType === 'scoops' ? ScoopOption : ToppingOption;
   const title = optionType[0].toUpperCase() + optionType.slice(1).toLowerCase();
 
   const optionItems = items.map(

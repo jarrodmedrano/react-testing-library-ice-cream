@@ -1,6 +1,7 @@
-import { createContext, useContext, useState, useMemo, useEffect } from "react";
-import { pricePerItem } from "../constants";
-import { formatCurrency } from "../utilities";
+import { createContext, useContext, useState, useMemo, useEffect } from 'react';
+import { ESMap, Map } from 'typescript';
+import { pricePerItem } from '../constants';
+import { formatCurrency } from '../utilities';
 
 // @ts-ignore
 const OrderDetails = createContext();
@@ -9,7 +10,7 @@ export const useOrderDetails = () => {
   const context = useContext(OrderDetails);
   if (!context) {
     throw new Error(
-      "useOrderDetails must be used within an OrderDetailsProvider"
+      'useOrderDetails must be used within an OrderDetailsProvider'
     );
   }
 
@@ -17,8 +18,11 @@ export const useOrderDetails = () => {
 };
 
 const calculateSubtotal = (
-  optionType: "scoops" | "toppings",
-  optionCounts: { scoops: Map<any, any>; toppings: Map<any, any> }
+  optionType: 'scoops' | 'toppings',
+  optionCounts: {
+    scoops: ESMap<string, string>;
+    toppings: ESMap<string, string>;
+  }
 ) => {
   let optionCount = 0;
   for (const count of optionCounts[optionType].values()) {
@@ -28,7 +32,7 @@ const calculateSubtotal = (
   return optionCount * pricePerItem[optionType];
 };
 
-export const OrderDetailsProvider = (props) => {
+export function OrderDetailsProvider(props) {
   const [optionCounts, setOptionCounts] = useState({
     scoops: new Map(),
     toppings: new Map(),
@@ -43,8 +47,8 @@ export const OrderDetailsProvider = (props) => {
   });
 
   useEffect(() => {
-    const scoopsSubtotal = calculateSubtotal("scoops", optionCounts);
-    const toppingsSubtotal = calculateSubtotal("toppings", optionCounts);
+    const scoopsSubtotal = calculateSubtotal('scoops', optionCounts);
+    const toppingsSubtotal = calculateSubtotal('toppings', optionCounts);
 
     const grandTotal = scoopsSubtotal + toppingsSubtotal;
 
@@ -56,10 +60,14 @@ export const OrderDetailsProvider = (props) => {
   }, [optionCounts]);
 
   const value = useMemo(() => {
-    const updateItemCount = (itemName, newItemCount, optionType) => {
+    const updateItemCount = (
+      itemName: string,
+      newItemCount: string,
+      optionType: string
+    ) => {
       const newOptionCounts = { ...optionCounts };
+      console.log('me', optionType);
       //update option count for this item with new values
-      //@ts-ignore
       const optionCountsMap = optionCounts[optionType];
       optionCountsMap.set(itemName, parseInt(newItemCount));
 
@@ -69,6 +77,6 @@ export const OrderDetailsProvider = (props) => {
     // setter: updateOptionCount
 
     return [{ ...optionCounts, totals }, updateItemCount];
-  }, [optionCounts]);
+  }, [optionCounts, totals]);
   return <OrderDetails.Provider value={value} {...props} />;
-};
+}

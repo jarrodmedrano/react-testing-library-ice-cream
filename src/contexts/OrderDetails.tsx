@@ -32,7 +32,7 @@ const calculateSubtotal = (
   return optionCount * pricePerItem[optionType];
 };
 
-export function OrderDetailsProvider(props) {
+export const OrderDetailsProvider = (props) => {
   const [optionCounts, setOptionCounts] = useState({
     scoops: new Map(),
     toppings: new Map(),
@@ -66,7 +66,7 @@ export function OrderDetailsProvider(props) {
       optionType: string
     ) => {
       const newOptionCounts = { ...optionCounts };
-      console.log('me', optionType);
+      console.log('me', optionCounts);
       //update option count for this item with new values
       const optionCountsMap = optionCounts[optionType];
       optionCountsMap.set(itemName, parseInt(newItemCount));
@@ -79,4 +79,4 @@ export function OrderDetailsProvider(props) {
     return [{ ...optionCounts, totals }, updateItemCount];
   }, [optionCounts, totals]);
   return <OrderDetails.Provider value={value} {...props} />;
-}
+};

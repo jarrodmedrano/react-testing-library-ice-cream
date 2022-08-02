@@ -6,7 +6,7 @@ test('Order phases for happy path', async () => {
   render(<App />);
 
   const vanillaInput = await screen.findByRole('spinbutton', {
-    name: 'vanilla',
+    name: 'Vanilla',
   });
 
   userEvent.clear(vanillaInput);
